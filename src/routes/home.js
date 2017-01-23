@@ -11,9 +11,8 @@ import {
   PanelContainer,
 } from '@sketchpixy/rubix';
 
-export default class Home extends React.Component {
-  componentDidMount() {
-    $('.dial').knob();
+function drawKnobs(){
+      $('.dial').knob();
     $('.knob').knob({
       draw: function() {
         // 'tron' case
@@ -57,21 +56,29 @@ export default class Home extends React.Component {
         }
       }
     });
+}
 
-    function clock() {
-      var $s = $('.second'),
-          $m = $('.minute'),
-          $h = $('.hour'),
-          d = new Date(),
-          s = d.getSeconds(),
-          m = d.getMinutes(),
-          h = d.getHours();
-      $s.val(s).trigger('change');
-      $m.val(m).trigger('change');
-      $h.val(h).trigger('change');
-      setTimeout(clock, 1000);
-    }
-    clock();
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      kegRefills: []
+    };
+  }
+  componentDidMount() {
+    //Get Keg status
+    fetch('https://chelita-api.azurewebsites.net/users').then(function(response) { 
+      console.log(response);
+    return response.json();
+    }).then(res => {
+      if (res.length > 0){
+        const kegRefills = res;
+        this.setState({ kegRefills });
+      }
+      }); 
+      this.drawKnobs();
+
   }
 
   render() {
@@ -94,10 +101,10 @@ export default class Home extends React.Component {
                   <br/>
                   <Row>
                     <Col xs={6} className='text-center'>
-                      <input type='text' defaultValue='75' className='dial autosize' data-width='100%' data-fgcolor='#4DBD33' />
+                      <input type='text' defaultValue='75' className='dial autosize' data-width='100%' data-fgcolor='#4DBD33' readOnly='readOnly'/>
                     </Col>
                     <Col xs={6} className='text-center'>
-                      <input type='text' defaultValue='29' className='dial autosize' data-width='100%' data-cursor='true' data-thickness='.3' data-fgcolor='#ffcccc' />
+                      <input type='text' defaultValue='25' className='dial autosize' data-width='100%' data-fgcolor='#ffcccc' readOnly='readOnly'/>
                     </Col>
 
                   </Row>
