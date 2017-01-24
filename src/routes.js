@@ -4,10 +4,10 @@ import { IndexRoute, Route } from 'react-router';
 
 import { Grid, Row, Col, MainContainer } from '@sketchpixy/rubix';
 
-import Footer from './common/footer';
-import Header from './common/header';
+import Footer from './components/common/footer';
+import Header from './components/common/header';
 
-import Home from './routes/home';
+import HomeContainer from './components/home/homeContainer';
 
 class App extends React.Component {
   render() {
@@ -31,6 +31,6 @@ class App extends React.Component {
 
 export default (
   <Route path='/' component={App}>
-    <IndexRoute component={Home}/>
+    <IndexRoute component={HomeContainer}/>
   </Route>
 );

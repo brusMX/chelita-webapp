@@ -10,8 +10,15 @@ import {
   FormControl,
   PanelContainer,
 } from '@sketchpixy/rubix';
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
 
-function drawKnobs(){
+    this.state = {
+      kegRefills: []
+    };
+  }
+  drawKnobs(){
       $('.dial').knob();
     $('.knob').knob({
       draw: function() {
@@ -57,15 +64,6 @@ function drawKnobs(){
       }
     });
 }
-
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      kegRefills: []
-    };
-  }
   componentDidMount() {
     //Get Keg status
     fetch('https://chelita-api.azurewebsites.net/users').then(function(response) { 
@@ -85,13 +83,50 @@ export default class Home extends React.Component {
     return (
       <div>
         <Row>
-          <Col sm={12}>
+          <Col sm={12} md={8}>
             <PanelContainer>
               <PanelHeader className='bg-purple fg-white'>
                 <Grid>
                   <Row>
                     <Col xs={12}>
                       <h3>Keg Status</h3>
+                    </Col>
+                  </Row>
+                </Grid>
+              </PanelHeader>
+              <PanelBody>
+                <Grid>
+                  <br/>
+                  <Row>
+                    <Col xs={6} className='text-center'>
+                      <input type='text' defaultValue='75' className='dial autosize' data-width='100%' data-fgcolor='#4DBD33' readOnly='readOnly'/>
+                    </Col>
+                    <Col xs={6} className='text-center'>
+                      <input type='text' defaultValue='25' className='dial autosize' data-width='100%' data-fgcolor='#ffcccc' readOnly='readOnly'/>
+                    </Col>
+
+                  </Row>
+                  <Row>
+                    <Col xs={6} className='text-center'>
+                      <h3>Mac and Jacks</h3>
+                    </Col>
+                    <Col xs={6} className='text-center'>
+                      <h3>Amber Ale</h3>
+                    </Col>
+
+                  </Row>
+                  <br/>
+                </Grid>
+              </PanelBody>
+            </PanelContainer>
+          </Col>
+          <Col sm={12} md={4}>
+            <PanelContainer>
+              <PanelHeader className='bg-purple fg-white'>
+                <Grid>
+                  <Row>
+                    <Col xs={12}>
+                      <h3>Latest poured Beer</h3>
                     </Col>
                   </Row>
                 </Grid>
