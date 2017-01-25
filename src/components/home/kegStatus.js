@@ -15,9 +15,6 @@ import {
 export default class KegStatus extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            kegRefills: []
-        };
     }
     drawKnobs() {
         $('.dial').knob();
